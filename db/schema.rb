@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_19_005927) do
+ActiveRecord::Schema.define(version: 2022_02_19_013644) do
 
   create_table "plans", force: :cascade do |t|
     t.integer "provider_id", null: false
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 2022_02_19_005927) do
     t.index ["provider_id"], name: "index_plans_on_provider_id"
   end
 
+  create_table "prices", force: :cascade do |t|
+    t.integer "plan_id", null: false
+    t.decimal "ampere", null: false
+    t.decimal "usage", null: false
+    t.decimal "total_price", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_id"], name: "index_prices_on_plan_id"
+  end
+
   create_table "providers", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -27,4 +37,5 @@ ActiveRecord::Schema.define(version: 2022_02_19_005927) do
   end
 
   add_foreign_key "plans", "providers"
+  add_foreign_key "prices", "plans"
 end
